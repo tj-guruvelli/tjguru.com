@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  jekyll:
+    image: jekyll/jekyll:latest
+    command: bash -c "bundle install && bundle exec jekyll build --trace"
+    volumes:
+      - .:/srv/jekyll
+    environment:
+      - JEKYLL_ENV=production
+      - DISABLE_SPRING=true

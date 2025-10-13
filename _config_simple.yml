@@ -1,0 +1,36 @@
+title: TJ Guru
+tagline: Cybersecurity & Development Blog
+description: Exploring cybersecurity, AI/ML, and software development with practical insights and tutorials.
+url: "https://tj-guruvelli.github.io"
+baseurl: ""
+lang: en
+timezone: America/New_York
+
+github:
+  username: tj-guruvelli
+
+social:
+  name: Teja Guruvelli
+  email: gguruvelli3@gatech.edu
+  links:
+    - https://github.com/tj-guruvelli
+    - https://www.linkedin.com/in/tjguruvelli/
+
+theme: jekyll-theme-chirpy
+
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
