@@ -16,3 +16,8 @@ group :jekyll_plugins do
   gem "jekyll-target-blank"
   gem "jekyll-redirect-from"
 end
+
+# Development tools (CI link checks)
+group :development do
+  gem "html-proofer", "~> 3.19"
+end
