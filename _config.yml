@@ -22,7 +22,7 @@ description: >- # used by seo meta and the atom feed
   Exploring cybersecurity, AI/ML, and software development with practical insights and tutorials.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: "https://tj-guruvelli.github.io/guruguardian"
+url: "https://tj-guruvelli.github.io"
 
 github:
   username: tj-guruvelli # change to your github username
@@ -144,7 +144,7 @@ pwa:
 paginate: 10
 
 # The base URL of your site
-baseurl: "/guruguardian"
+baseurl: ""
 
 # ------------ The following options are not recommended to be modified ------------------
 
