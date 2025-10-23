@@ -21,18 +21,18 @@ Other details:
 * For the max flow problems, the cycles are ok! 
 * Anti parallel edges:
 
-  ![image](../../../assets/posts/gatech/ga/mf1_mf1_anti.png){: width='400'}
+  ![image](/assets/posts/gatech/ga/mf1_mf1_anti.png){: width='400'}
 * Notice the edge between $a\leftrightarrow b$, you want to break this anti parallel edges (Because of the residual network that we will see later)
 
 **Residual Network**
 
 Consider the following network, we initially run a path $s \rightarrow a \rightarrow b \rightarrow t$
 
-![image](../../../assets/posts/gatech/ga/mf1_mf1_resid0.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf1_mf1_resid0.png){: width='400'}
 
 But, it turns out that there is still capacity of $7$ left, what can we do? We build a backward edge with weights from the previous path, as shown with the red arrow below.
 
-![image](../../../assets/posts/gatech/ga/mf1_mf1_resid.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf1_mf1_resid.png){: width='400'}
 
 Now, we can pass on a flow of $7$ and the max flow is $17$.
 
@@ -92,7 +92,7 @@ Recall that a cut is a partition of vertices $V$ into two sets, $V = L \cup R$. 
 
 Notice that a cut does not need to be connected, F is not connected to A and B in this subset. We are interested in the capacity of this st-cut. 
 
-![image](../../../assets/posts/gatech/ga/mf2_mf2_cut.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf2_mf2_cut.png){: width='400'}
 
 Define capacity from $L\rightarrow R$
 
@@ -107,13 +107,13 @@ So the problem formulation of the min st-cut problem is as follows:
 * Input: flow network
 * Output: st-cut (L,R) with minimum capacity.
 
-![image](../../../assets/posts/gatech/ga/mf2_mf2_cut1.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf2_mf2_cut1.png){: width='400'}
 
 For example consider this cut, the capacity is $8+2+2+3+7+5 = 27$ 
 
 The cut with minimum capacity is as follows
 
-![image](../../../assets/posts/gatech/ga/mf2_mf2_cut2.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf2_mf2_cut2.png){: width='400'}
 
 The min st-cut is 12, which i is equal to the max-flow 12. $L$ contains everybody but $t$. So the theorem we want to prove is the size of hte max flow equals to the size of the min st-cut.
 
@@ -234,7 +234,7 @@ BFS:
 * Input: directed $G=(V,E)$, no edge weights, $s \in V$
 * Output: for all $v \in V$, dist($v$) = min number of edges $s \rightarrow v$
 
-![image](../../../assets/posts/gatech/ga/mf4_bfs.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf4_bfs.png){: width='400'}
 
 The key insight here is for BFS, there is a level($v$), so the path that BFS finds from $s \rightarrow t$ is going to be a path where the level goes up by plus one at every edge, and this is the key property that we need from BFS.
 
@@ -293,13 +293,13 @@ In conclusion, if we delete $\overrightarrow{vw}$ from $G^f$ and then later add 
 * input: flow network: directed $G=(V,E)$ with $s,t \in V$ capacities $c(e) > 0, e \in E$ and demands $d(e) \geq 0, e \in E$
 * Output: flow is a flow $f$ where for $e \in E$, $d(e) \leq f(e) \leq c(e)$
 
-![image](../../../assets/posts/gatech/ga/mf5_feasible.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_feasible.png){: width='400'}
 
 * Red represents capacity 
 * Green represents demands
 * Blue is the actual flow
 
-![image](../../../assets/posts/gatech/ga/mf5_feasible_reduction.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_feasible_reduction.png){: width='400'}
 
 The goal is to find a reduction $g,f$ so we can use the max-flow algorithm. So we want to find mappings $g$ and $h$.
 
@@ -316,17 +316,17 @@ $$
 * And also shift the capacity as well by $d$ units 
   * $c'(e) = c(e) - d(e)$
    
-![image](../../../assets/posts/gatech/ga/mf5_feasible_reduction1.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_feasible_reduction1.png){: width='400'}
 
 Consider the right graph, where the flow into a and flow out of a is zero, which is a valid flow. But if we look at the left side, that means a has an inflow of 3 units, but outflow of 8 units, which is not a valid flow since in == out. So we need to offset / fix this somehow, so a valid flow on rhs will be a valid flow on lhs.
 
 To do this, we define $s', t'$ where $s' \rightarrow v, v \rightarrow t', v \in V$. 
 
-![image](../../../assets/posts/gatech/ga/mf5_feasible_reduction2.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_feasible_reduction2.png){: width='400'}
 
 There is still one more thing, notice that there is no flow in to $s$, so we add an edge from  $s \leftarrow t$ and set it to $\infty$.
 
-![image](../../../assets/posts/gatech/ga/mf5_feasible_reduction3.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_feasible_reduction3.png){: width='400'}
 
 #### Lemma - Saturating flows
 
@@ -448,26 +448,26 @@ Notice that it is a similar flow as max flow, the difference from before is that
 
 Example:
 
-![image](../../../assets/posts/gatech/ga/mf5_eg1_feasible.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_eg1_feasible.png){: width='400'}
 
 Find the flow in the following:
 
-![image](../../../assets/posts/gatech/ga/mf5_eg1_feasible1.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_eg1_feasible1.png){: width='400'}
 
 
 Solution:
 
 The max-flow $G'$ with capacities shown:
 
-![image](../../../assets/posts/gatech/ga/mf5_eg1_feasible2.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_eg1_feasible2.png){: width='400'}
 
 The saturating flow:
 
-![image](../../../assets/posts/gatech/ga/mf5_eg1_feasible3.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_eg1_feasible3.png){: width='400'}
 
 And the solution:
 
-![image](../../../assets/posts/gatech/ga/mf5_eg1_feasible4.png){: width='400'}
+![image](/assets/posts/gatech/ga/mf5_eg1_feasible4.png){: width='400'}
 
 
 

@@ -223,11 +223,11 @@ Then, on the terminal run `nvidia-smi` and this should be the output:
 
 If you see the `nvidia-smi` output above, you will notice that the CUDA Version is version 12. However, it is important for you to check the latest distribution of [pytorch cuda version](https://pytorch.org/get-started/locally/), for example in my case the stable build only supports up till 11.8.
 
-![image]({{ "/assets/posts/dlrig/pytorch_site.png" | relative_url }})
+![image](/assets/posts/dlrig/pytorch_site.png)
 
 So, it is important that we install the cuda 11.8 version. I just searched Google with `nvidia driver for cuda 11.8` and it brought me to the nvidia developer page [here](https://developer.nvidia.com/cuda-11-8-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=runfile_local).
 
-![image]({{ "/assets/posts/dlrig/nvidia.png" | relative_url }})
+![image](/assets/posts/dlrig/nvidia.png)
 
 Select the required OS, architecture, distribution and version, `runfile` as installer type which will give you the instructions:
 
@@ -238,15 +238,15 @@ sudo sh cuda_11.8.0_520.61.05_linux.run
 
 When you run the bash scripts, it warns you that you already have an earlier of driver installed, click `Continue`:
 
-![image]({{ "/assets/posts/dlrig/install1.png" | relative_url }})
+![image](/assets/posts/dlrig/install1.png)
 
 Accept the terms and conditions:
 
-![image]({{ "/assets/posts/dlrig/install2.png" | relative_url }})
+![image](/assets/posts/dlrig/install2.png)
 
 And unselect the driver installation:
 
-![image]({{ "/assets/posts/dlrig/install3.png" | relative_url }})
+![image](/assets/posts/dlrig/install3.png)
 
 After this step, reboot your desktop (`sudo reboot`). It will show you an output that your cuda has been added to `/usr/local/cuda` directory.
 

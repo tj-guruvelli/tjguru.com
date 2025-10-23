@@ -7,15 +7,14 @@ math: true
 
 ### Introduction
 
-* Step1: State the subproblem, i.e define what $D[i][j][k]$ represents. In general:
-  * Try prefix (or suffix)
-  * Then try substrings
-    * If you figured out a problem using substrings, think whether it can be solved with prefix/suffix.
-    * At least for this course, we are not testing suffix.
-* Step2: Express the subproblem in the form of a recurrence relation, including the base cases.
-* Step3: Write out the pseudocode.
-* Step4: Time complexity analysis.
-
+- Step1: State the subproblem, i.e define what $D[i][j][k]$ represents. In general:
+  - Try prefix (or suffix)
+  - Then try substrings
+    - If you figured out a problem using substrings, think whether it can be solved with prefix/suffix.
+    - At least for this course, we are not testing suffix.
+- Step2: Express the subproblem in the form of a recurrence relation, including the base cases.
+- Step3: Write out the pseudocode.
+- Step4: Time complexity analysis.
 
 ### Longest increasing subsequence (LIS) (DP1)
 
@@ -23,7 +22,7 @@ Given a following sequence, find the length of the longest increasing subsequenc
 
 Extra Information:
 
-When considering the LIS, the key question to ask is given a subsequence $x_1, ..., x_{n-1}$, when will $x_n$ affect the LIS. When does this happen? Is only when $x_n$ is appended to the LIS of $x_1,...,x_{n-1}$. 
+When considering the LIS, the key question to ask is given a subsequence $x_1, ..., x_{n-1}$, when will $x_n$ affect the LIS. When does this happen? Is only when $x_n$ is appended to the LIS of $x_1,...,x_{n-1}$.
 
 Concretely, suppose the $LIS(x_1,...,x_{n-1}) = x_{1^*},...,x_j$, then LIS of $x_1,...,x_{n-1}, x_n$ will only change if $x_n$ is included, otherwise the LIS remains the same. This can only happen if $x_n > x_j$.
 
@@ -37,16 +36,16 @@ $$
 L(i) = 1 +\underset{1 \leq j < i}{max} \{ L(j) \lvert x_j < x_i\  \}
 $$
 
-
 `Pseudocode`:
 
 Note, $L(i)$ must be at least 1, where the LIS is just itself.
+
 ```
 S = [x1,...,xn]
 L = [0, ..., 0]
 for i = 1-> n:
   # Stores the current best of L[i], which must be at least 1
-  L[i] = 1 
+  L[i] = 1
   for j = 1 -> i-1:
     if S[i] > S[j] and L[j] + 1 >= L[i]:
        L[i] = L[j] + 1 # Update current best
@@ -68,21 +67,21 @@ Note that X and Y can be of different lengths, so, given a $X[:i]$ and $Y[:j]$. 
 
 if $x_i \neq y_j$, then either of the 3 cases can occur:
 
-* $x_i$ is not used in the final solution, $L(i-1,j)$
-* $y_j$ is not used in the final solution, $L(i, j-1)$
-* Both is not used in the final solution 
-  * If the last character of both is not used, then we can just drop both!
+- $x_i$ is not used in the final solution, $L(i-1,j)$
+- $y_j$ is not used in the final solution, $L(i, j-1)$
+- Both is not used in the final solution
+  - If the last character of both is not used, then we can just drop both!
 
 So, we can just consider the first two cases and take the max, i.e max$(L(i-1,j), L(i,j-1))$
 
 if $x_i = y_j$, again there are 3 cases to consider:
 
-* $x_i$ is not used in the final solution, $L(i-1,j)$
-* $y_i$ is not used in the final solution, $L(i, j-1)$
-* Both $x_i$ and $y_j$ are used in the final solution, $1+L(i-1,i-j)$.
-  * Note this means that the LCS $X[:i],Y[:j]$ ends with both $x_i$ and $y_j$ respectively
+- $x_i$ is not used in the final solution, $L(i-1,j)$
+- $y_i$ is not used in the final solution, $L(i, j-1)$
+- Both $x_i$ and $y_j$ are used in the final solution, $1+L(i-1,i-j)$.
+  - Note this means that the LCS $X[:i],Y[:j]$ ends with both $x_i$ and $y_j$ respectively
 
-This is equal to max$\\{L(i-1,j), L(i,j-1), 1+L(i-1,i-j)\\}$. 
+This is equal to max$\\{L(i-1,j), L(i,j-1), 1+L(i-1,i-j)\\}$.
 
 However, we only need to consider the last case $1+L(i-1,i-j)$. This is because if the final solution must contain either $x_i$ or $y_j$ - otherwise we can just simply append them to the end. It may be possible that $x_i = y_{j-c}$, where it corresponds to some earlier occurrence in Y. But if this is true, that means $y_{j-c} = y_j$ and it does not matter.
 
@@ -130,15 +129,15 @@ After the matrix L is constructed, we can backtrace to find out the common subse
 
 We consider the following cases:
 
-* If $x_i = y_j$, this means that a character was added and then we move diagonally up.
-* Else, we check to the left and top of coordinates (i,j).
-  * The left coordinate is (i-1,j)
-  * The top coordinate is (i,j-1)
-  * If the left coordinate is greater or equal to the top coordinate, we move left.
-    * This means we ignored $x_i$
-  * Else, we move top.
-    * This means that we ignored $y_j$
-* Repeat until converge to initial starting point. 
+- If $x_i = y_j$, this means that a character was added and then we move diagonally up.
+- Else, we check to the left and top of coordinates (i,j).
+  - The left coordinate is (i-1,j)
+  - The top coordinate is (i,j-1)
+  - If the left coordinate is greater or equal to the top coordinate, we move left.
+    - This means we ignored $x_i$
+  - Else, we move top.
+    - This means that we ignored $y_j$
+- Repeat until converge to initial starting point.
 
 ```
 i=n, j=m
@@ -151,7 +150,7 @@ while i > 1 and j>1:
   if L[i-1][j] >= L[i][j-1]:
     i = i - 1
   else:
-    j = j - 1  
+    j = j - 1
 
 return reverse(string)
 ```
@@ -217,9 +216,9 @@ Then, K(1) = $x_1$ with $V=15$, K(2) is also $x_1$ with $V=15$. But, how do we e
 
 Consider this new approach $K(I,B)$ where we also consider w as part of the sub problem - that is what is the optimal set of items given capacity b, for $ 1 \leq I \leq N, 1 \leq b \leq B$. Then by doing so, when we consider $K(3,22)$, there are two cases to consider:
 
-* If $x_3$ is part of the solution, then we look up $K(2,22-v_3) = K(2,12)$
-  * Notice that $K(2,12)$ will give us item 2 with $w_2 = 12$.
-* If $x_3$ is not part of the solution, then we look up $K(2,22)$
+- If $x_3$ is part of the solution, then we look up $K(2,22-v_3) = K(2,12)$
+  - Notice that $K(2,12)$ will give us item 2 with $w_2 = 12$.
+- If $x_3$ is not part of the solution, then we look up $K(2,22)$
 
 `Subproblem`:
 
@@ -236,7 +235,6 @@ $$
 The base cases will be $K(0,b) = 0, K(i,0) = 0 \forall i, b$
 
 That is, if item $x_i$ is included, then we add the corresponding value $v_i$ and subtract the weight of item i $w_i$. If it is not included, then we simply take the first $i-1$ items.
-
 
 `Pseudocode`:
 
@@ -259,9 +257,10 @@ return K(N,W)
 
 There is two loops, N, and W, so, $O(NB)$.
 
-However, note that $B$ is an integer which can be represented with $2^m$ bits, so the complexity can be rewritten as $O(N2^m)$ which is exponential runtime. 
-* Knapsack is also known as a Pseudo-polynomial time problem
-* [Why is knapsack problem pseudo polynomial?](https://stackoverflow.com/questions/4538581/why-is-the-knapsack-problem-pseudo-polynomial)
+However, note that $B$ is an integer which can be represented with $2^m$ bits, so the complexity can be rewritten as $O(N2^m)$ which is exponential runtime.
+
+- Knapsack is also known as a Pseudo-polynomial time problem
+- [Why is knapsack problem pseudo polynomial?](https://stackoverflow.com/questions/4538581/why-is-the-knapsack-problem-pseudo-polynomial)
 
 To do backtracking,
 
@@ -271,7 +270,7 @@ included = [0] * N
 
 for i = 1 to N:
   if K[i,b] != K[i-1,B]:
-    # this means item i is included 
+    # this means item i is included
     included[i] = 1
     B = B - weights[i]
 ```
@@ -314,7 +313,7 @@ The complexity does not change, but the space complexity is now based on B.
 
 Backtracking
 
-To do backtracking, we have a separate array (multiset) $S(b) = [[],...,[]]$ so whenever an item $x_i$ get added, simply set $S(w) = S(w-w_i) + [i]$. 
+To do backtracking, we have a separate array (multiset) $S(b) = [[],...,[]]$ so whenever an item $x_i$ get added, simply set $S(w) = S(w-w_i) + [i]$.
 
 Note, if we find a better solution to add item $x_i$, then $S(w)$ will be overwritten.
 
@@ -322,14 +321,14 @@ Note, if we find a better solution to add item $x_i$, then $S(w)$ will be overwr
 
 Consider two matrices $X_{a,b}$ and $Y_{b,c}$, the computation cost of calculating $XY$ is $O(abc)$.
 
-Suppose we have 3 matrices $A_{2,5}, B_{5,10}, C_{10,2}$, 
+Suppose we have 3 matrices $A_{2,5}, B_{5,10}, C_{10,2}$,
 
-* Calculating $((AB)C)$ will require $\underbrace{2 \times 5 \times 10}_{AB} + 2\times 10\times 2 = 140$ computations
-* While calculating $(A(BC))$ will require $\underbrace{5\times 10\times 2}_{BC} + 2\times 5\times 2 = 120$ computations
+- Calculating $((AB)C)$ will require $\underbrace{2 \times 5 \times 10}_{AB} + 2\times 10\times 2 = 140$ computations
+- While calculating $(A(BC))$ will require $\underbrace{5\times 10\times 2}_{BC} + 2\times 5\times 2 = 120$ computations
 
-So, the point here is that the order of multiplication matters. 
+So, the point here is that the order of multiplication matters.
 
-The problem now is given an initial sequence of matrices $A_1...,A_n$, suppose the optimal point to split is at $k$, then the left sequence will be $A_1....A_k$. Then, for this left sequence, what will be the optimal split? So, the point at which the split occurs is dynamic. 
+The problem now is given an initial sequence of matrices $A_1...,A_n$, suppose the optimal point to split is at $k$, then the left sequence will be $A_1....A_k$. Then, for this left sequence, what will be the optimal split? So, the point at which the split occurs is dynamic.
 
 ```mermaid
 
@@ -361,18 +360,17 @@ where $C(i,l)$ is the cost of the left subtree, $c(l+1,j)$ is the right substree
 
 `Pseudocode`:
 
-![image](../../../assets/posts/gatech/ga/dp_chain_matrix.png)
+![image](/assets/posts/gatech/ga/dp_chain_matrix.png)
 
-So, $C(i,i) = 0, \forall i$. Then, we calculate $C(i,i+1), C(i, i+2), ..., C(1,n)$ which is the solution that we are looking for. 
+So, $C(i,i) = 0, \forall i$. Then, we calculate $C(i,i+1), C(i, i+2), ..., C(1,n)$ which is the solution that we are looking for.
 
-* Start at the diagonal and move up, to index this, consider $C(i,i+2)$ and $C(i,i)$, the difference is $i+2$, and $i$. Let's call this the width, $s = j-i$.
-  * Then, $j$ can be calculated with $j = i+s$
-  * So we do this until we get width = $n-1$, so $s=0\rightarrow n-1$.
+- Start at the diagonal and move up, to index this, consider $C(i,i+2)$ and $C(i,i)$, the difference is $i+2$, and $i$. Let's call this the width, $s = j-i$.
+  - Then, $j$ can be calculated with $j = i+s$
+  - So we do this until we get width = $n-1$, so $s=0\rightarrow n-1$.
 
 To rephrase this, given that we fill the diagonal first, we move one step to the right of the diagonal, i.e $C(2,i+1),.., C(n, i+1)$. Then, how many elements do we need to compute? n-1 elements.
 
 Now, suppose we move $s$ steps to the right of the diagonal, then, there will be $n-s$ elements to compute.
-
 
 ```
 # This step will populate the diagonals
@@ -382,10 +380,10 @@ for i=1 -> n:
 for s=1 -> n-1:
     # How many elements we need to compute
     for i=1 -> n-s:
-      # Compute the j coordinate    
-      Let j=i+s                                              
+      # Compute the j coordinate
+      Let j=i+s
       C(i,j) = infinity
-      for l=i -> j-1:                                          
+      for l=i -> j-1:
         curr = (m[i-1] * m[l] * m[j]) + C(i,l) + C(l+1,j)
         if C(i,j) > curr:
           C(i,j) = curr
@@ -396,11 +394,9 @@ return C(1,n)
 
 The time complexity is 3 inner for loops, so, $O(n^3)$.
 
-
 Backtracking
 
 To perform backtracking, we need another matrix, to keep track for each $i,j$, what is the corresponding $l$ in which the best split took place. Then, backtracking can be done via recursion. Here is an example:
-
 
 ```
 def traceback_optimal_parens(s, i, j):
@@ -429,7 +425,7 @@ for width in range(1,n):
   for i in range(n - width):
     """
     This is the corresponding y coordinate,
-    which is just adding the width to the x coordinate 
+    which is just adding the width to the x coordinate
     From the current x-coordinate, move width steps.
 
     For example, lets look at the diagonal 2 points away
@@ -441,7 +437,7 @@ for width in range(1,n):
     (_,_), (_,_), (_,_), (_,_), (4,4)
 
     which is (0,2), (1,3), (2,4)
-    so, x runs from 0 to 2 
+    so, x runs from 0 to 2
     while y runs from 2 to 4 which is adding the width
     """
     j = i + width
@@ -453,7 +449,6 @@ for width in range(1,n):
       """
       # D[i][j] = Operation(D[i][l],D[l+1][j])
 ```
-
 
 ### Bellman-Ford (DP3)
 
@@ -467,7 +462,7 @@ $$
 \lvert P \lvert \leq (n-1)\text{edges}
 $$
 
-DP idea: Condition on the prefix of the path. Use $i = 0 \rightarrow n-1$ edges on the paths. 
+DP idea: Condition on the prefix of the path. Use $i = 0 \rightarrow n-1$ edges on the paths.
 
 For $0 \leq i \leq n-1, z \in V$, let $D(i,z)$ denote the length of the shortest path from S to Z using $\leq i$ edges.
 
@@ -495,7 +490,7 @@ for i = 1 to n-1:
         if D(i,z) > D(i-1,y) + w(y,z):
           D(i,z) = D(i-1,y) + w(y,z)
 # Return the last row
-Return D(n-1,:) 
+Return D(n-1,:)
 ```
 
 Note, the last row basically returns all paths at most length $n-1$ from source node $s$ to all other vertex $z \in V$
@@ -512,15 +507,13 @@ $$
 D(n,z) < D(n-1,z), \exists z \in V
 $$
 
-
-Suppose we wanted to find all pairs, and use bellman ford, what will the solution look like? 
+Suppose we wanted to find all pairs, and use bellman ford, what will the solution look like?
 
 Given $\overrightarrow{G} = (V,E)$, with edge weights $w(e)$. For $y,z \in V$, let $dist(y,z)$ be the legnth of shortest path $y \rightarrow z$..
 
 Goal: Find $dist(y,z), \forall y,z \in V$
 
-The time complexity in this case will be $O(N^2M)$. Also, if $\overrightarrow{G}$ is a fully connected graph, it means there are $M=N^2$ edges, making it a $O(N^4)$ algorithm. What can we do about this? Look at [Flord Warshall](#floyd-warshall)!
-
+The time complexity in this case will be $O(N^2M)$. Also, if $\overrightarrow{G}$ is a fully connected graph, it means there are $M=N^2$ edges, making it a $O(N^4)$ algorithm. What can we do about this? Look at [Flord Warshall](#floyd-warshall-dp3)!
 
 A side note about Dijkstra algorithm, it is a greedy algorithm with time complexity $O(N + E log(N))$, so it is better than Bellman Ford if you know that there are no negative edges
 
@@ -542,7 +535,7 @@ If it is not in the optimal path $P$, then the $D(i,s,t) = D(i-1,s,t)$.
 
 If it is in the optimal path $P$, then this is the scenario where it can happen.
 
-![image](../../../assets/posts/gatech/ga/dp_floyd_warshall.png)
+![image](/assets/posts/gatech/ga/dp_floyd_warshall.png)
 
 Notice that you go from $S$ to a subset (can be an empty set) or vertices $\{1,...,i-1\}$, go to vertex $i$, back to the subset before reaching vertex $t$. So there is this 4 paths to consider.
 
@@ -555,7 +548,7 @@ Inputs: G, w
 
 for s=1->n:
     for t=1->n:
-        if (s,t) in E 
+        if (s,t) in E
             then D(0,s,t)=w(s,t)
         else D(0,s,t) = infty
 
@@ -572,12 +565,13 @@ Return D(n,:,:)
 
 The complexity here is clearly $O(N^3)$.
 
-To detect negative weight cycles, can check the diagonal of the matrix D. 
-* If there is a negative cycle, then there should be a negative path length from a vertex to itself, i.e $D(n,y,y) < 0, \exists y \in V $. 
-  * This is equivalent to checking whether there is any negative entries on the diagonal matrix $D(n,:,:)$.
+To detect negative weight cycles, can check the diagonal of the matrix D.
 
-For bellman ford algorithm, it depends on the s and z to determine if a negative weight path exists, a single source shortest path algorithm. But for Floyd Warshall, it does all pair shortest path, and hence it is guaranteed to find the negative cycle, if it exists. 
+- If there is a negative cycle, then there should be a negative path length from a vertex to itself, i.e $D(n,y,y) < 0, \exists y \in V $.
+  - This is equivalent to checking whether there is any negative entries on the diagonal matrix $D(n,:,:)$.
 
-----
+For bellman ford algorithm, it depends on the s and z to determine if a negative weight path exists, a single source shortest path algorithm. But for Floyd Warshall, it does all pair shortest path, and hence it is guaranteed to find the negative cycle, if it exists.
+
+---
 
 <!-- {% include embed/youtube.html id='10oQMHadGos' %} -->

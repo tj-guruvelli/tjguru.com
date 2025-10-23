@@ -358,7 +358,7 @@ The key here is $\frac{3}{4} + \frac{1}{5} < 1$
 
 **Prove of the claim that p is a good pivot**
 
-![image](../../../assets/posts/gatech/ga/dc_median.png)
+![image](/assets/posts/gatech/ga/dc_median.png)
 
 **Fun exercise**: Why did we choose size 5? And not size 3 or 7?
 
@@ -695,7 +695,7 @@ $$
 n\theta = 2\pi j \Rightarrow \theta \frac{2\pi j}{n}
 $$
 
-![image](../../../assets/posts/gatech/ga/dc_nthrootsofunity.png){: width='200' height='200'}
+![image](/assets/posts/gatech/ga/dc_nthrootsofunity.png){: width='200' height='200'}
 
 So the $n^{th}$ roots notation can be expressed as
 
@@ -709,7 +709,7 @@ $$
 \omega_n = (1, \frac{2\pi}{n}) = e^{2\pi i /n }
 $$
 
-![image](../../../assets/posts/gatech/ga/dc_nthrootsofunity2.png){: width='200' height='200'}
+![image](/assets/posts/gatech/ga/dc_nthrootsofunity2.png){: width='200' height='200'}
 
 With that, we can formally define the the $n^{th}$ roots of unity, $\omega_n^0, \omega_n^1, ...., \omega_n^{n-1}$.
 
@@ -719,11 +719,11 @@ $$
 
 Suppose we want 16 roots, we can see the circle being divided into 16 different parts.
 
-![image](../../../assets/posts/gatech/ga/dc_nthrootsofunity3.png){: width='200' height='200'}
+![image](/assets/posts/gatech/ga/dc_nthrootsofunity3.png){: width='200' height='200'}
 
 And, note the consequences:
 
-![image](../../../assets/posts/gatech/ga/dc_nthrootsofunity4.png)
+![image](/assets/posts/gatech/ga/dc_nthrootsofunity4.png)
 
 * $(n^{th} roots)^2 = \frac{n}{2} roots$
   * e.g $\omega_{16}^2 = \omega_8$

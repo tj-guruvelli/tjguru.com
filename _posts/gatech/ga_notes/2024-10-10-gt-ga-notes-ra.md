@@ -370,7 +370,7 @@ Notice that the other party only knows $N$, is it possible for the other party t
 
 Here is an image to illustrate:
 
-![image](../../../assets/posts/gatech/ga/ra2_alice_bob_rsa.png){: width='400'}
+![image](/assets/posts/gatech/ga/ra2_alice_bob_rsa.png){: width='400'}
 
 **Bob** 
 * Bob picks $2$ n-bit random primes $p, q$

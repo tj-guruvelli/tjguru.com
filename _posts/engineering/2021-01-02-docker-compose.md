@@ -2,7 +2,7 @@
 title: Multiple Docker running with Docker Compose
 date: 2021-01-12 0000:00:00 +0800
 categories: [Knowledge, Engineering]
-tags: [engineering, reproducibility, docker]     # TAG names should always be lowercase
+tags: [engineering, reproducibility, docker] # TAG names should always be lowercase
 math: true
 toc: true
 mermaid: true
@@ -12,20 +12,20 @@ mermaid: true
 
 As a data scientist/analyst:
 
-* You probably interact with databases to read/write data.
-* Require/Prefer a local environment to work locally to quicky tests some functionality/ 
-* Mocking something before deploying to production. 
+- You probably interact with databases to read/write data.
+- Require/Prefer a local environment to work locally to quicky tests some functionality/
+- Mocking something before deploying to production.
 
-This is where docker compose will come into play! By the end of this article, you should be able to deploy an ipython environment connected to a database (postgres) with docker. 
+This is where docker compose will come into play! By the end of this article, you should be able to deploy an ipython environment connected to a database (postgres) with docker.
 
 ## Pre-req
 
 As usual, the following prerequisites are assumed:
 
-* [Docker](../docker)
-* [Makefile](../makefile)
-* Understanding of python
-* Using the terminal
+- [Docker](../docker)
+- [Makefile](../makefile)
+- Understanding of python
+- Using the terminal
 
 Extra notes - if you are using mac, `docker-compose` comes installed with `docker-desktop`. For other OS, please refer to the [installation instructions](https://docs.docker.com/compose/install/).
 
@@ -33,13 +33,12 @@ Extra notes - if you are using mac, `docker-compose` comes installed with `docke
 
 We will run through the following steps:
 
-* Generate a dummy csv with the iris dataset.
-* Create Dockerfile with postgres
-* Prepare the sql script to trigger when building the postgres image 
-* Access the postgres 
+- Generate a dummy csv with the iris dataset.
+- Create Dockerfile with postgres
+- Prepare the sql script to trigger when building the postgres image
+- Access the postgres
 
-After you are done with this section, you should have the following structure: 
-
+After you are done with this section, you should have the following structure:
 
 ```tree
 .
@@ -79,11 +78,11 @@ df.to_csv("data/iris.csv",index=False)
 
 Then we:
 
-* create a folder named `data`.
-* run the python script to generate the csv dataset.
+- create a folder named `data`.
+- run the python script to generate the csv dataset.
 
 ```bash
-mkdir data 
+mkdir data
 python -B generate_iris.py
 ```
 
@@ -97,12 +96,12 @@ FROM postgres:alpine
 
 ### setup sql script
 
-Under the [postgres documentation from docker](https://hub.docker.com/_/postgres/){target_blank}, if we want to load the sql script during run time, we need to create a sql script and put it in the `/docker-entrypoint-initdb.d` directory. 
+Under the [postgres documentation from docker](https://hub.docker.com/_/postgres/){target_blank}, if we want to load the sql script during run time, we need to create a sql script and put it in the `/docker-entrypoint-initdb.d` directory.
 
-Here is the official block from the docs: 
+Here is the official block from the docs:
 
 > If you would like to do additional initialization in an image derived from this one, add one or more `*.sql`, `*.sql.gz`, or `*.sh` scripts under /docker-entrypoint-initdb.d (creating the directory if necessary). After the entrypoint calls initdb to create the default postgres user and database, it will run any `*.sql` files, run any executable `*.sh` scripts, and source any non-executable `*.sh` scripts found in that directory to do further initialization before starting the service.
-{: .prompt-info }
+> {: .prompt-info }
 
 so, we first create our SQL script named `setup.sql`
 
@@ -121,8 +120,8 @@ COPY iris FROM '/data/iris.csv' DELIMITER ',' CSV HEADER;
 
 Special notes:
 
-* You must import all columns in the csv file in order in setup.py
-* The columns must also be in order. 
+- You must import all columns in the csv file in order in setup.py
+- The columns must also be in order.
 
 ### Updating Dockerfile
 
@@ -190,7 +189,7 @@ docker exec -it mydb bash
 bash-5.1#
 ```
 
-To access postgres, 
+To access postgres,
 
 ```bash
 bash-5.1# psql -U postgres -d your_database
@@ -200,7 +199,7 @@ Type "help" for help.
 your_database=#
 ```
 
-To show that your table is loaded: 
+To show that your table is loaded:
 
 ```bash
 your_database=# \dt
@@ -225,12 +224,12 @@ your_database=# select species, count(1) from iris group by species;
 (3 rows)
 ```
 
-### Direct access to psql 
+### Direct access to psql
 
-That might still be a hassle to access the bash and running the database, instead we can directly cmd docker to do so for us: 
+That might still be a hassle to access the bash and running the database, instead we can directly cmd docker to do so for us:
 
+Add the following to `Makefile` and run it:
 
-Add the following to `Makefile` and run it: 
 ```make
 access_pg:
 	docker exec -it $(CONTAINER_DB_NAME) psql -U postgres -d your_database
@@ -268,7 +267,7 @@ output:
 
 ### Persist changes (TIY)
 
-In the above examples, whenever you rebuild the images and re-run the containers, whatever data that is written into the postgres database will not persist. 
+In the above examples, whenever you rebuild the images and re-run the containers, whatever data that is written into the postgres database will not persist.
 
 In certain cases, this might not be the desired behaviour you need, in that case you can sync the postgres volume with your local machine through the docker volume mount `/var/lib/postgresql/data`:
 
@@ -328,7 +327,7 @@ In your directory you will see a new folder tmp and your directory will look lik
 20 directories, 13 files
 ```
 
-Now the next time you run this command, docker postgres will detects that an existing postgres volume exists, it will **not** run the initialization. 
+Now the next time you run this command, docker postgres will detects that an existing postgres volume exists, it will **not** run the initialization.
 
 ```bash
 PostgreSQL Database directory appears to contain a database; Skipping initialization
@@ -340,8 +339,8 @@ PostgreSQL Database directory appears to contain a database; Skipping initializa
 
 We are now ready to proceed with our next steps:
 
-* switching the dockerfile to docker-compose
-* running the postgres db with docker-compose 
+- switching the dockerfile to docker-compose
+- running the postgres db with docker-compose
 
 At the end of the section this should be your structure:
 
@@ -374,10 +373,9 @@ normalrun:
 To do the same with docker-compose, we create a file named `docker-compose.yml` (you can customize the file name as well):
 
 ```yml
-version: '3.8'
+version: "3.8"
 
 services:
-
   db:
     build:
       context: .
@@ -392,12 +390,12 @@ services:
       - POSTGRES_DB=your_database
 ```
 
-Notice the 1-1 mapping of 
+Notice the 1-1 mapping of
 
-* environment variables
-* container name
-* context/dokcerfile location
-* volume mounts 
+- environment variables
+- container name
+- context/dokcerfile location
+- volume mounts
 
 ### Psql with compose
 
@@ -406,7 +404,7 @@ Now we do the exact same thing with docker, by adding these commands to makefile
 ```make
 dc_build:
 	docker-compose build
-	
+
 dc_up:
 	docker-compose up
 
@@ -442,7 +440,7 @@ Successfully tagged dr_dc_db:latest
 
 ### The run step
 
-Followed by the run step with `docker-compose up`: 
+Followed by the run step with `docker-compose up`:
 
 ```bash
 ❯ make dc_up
@@ -502,14 +500,14 @@ Creating mydb ... done
 
 You can verify that the containers are running with `docker ps` (this means your terminal is able to run the next commands). Similarily, stop the containers from running with `make dc_down`.
 
-## Python with compose 
+## Python with compose
 
 The next part of the section is to run our [docker](knowledge:docker) python example with docker compose instead.
 
 I suggest you to give it a try without reading on! You might encounter two error / difficulty:
 
-* exit with code 0 
-* unsure how to access interactive mode in docker compose 
+- exit with code 0
+- unsure how to access interactive mode in docker compose
 
 If so, jump to the [references section](#references)!
 
@@ -577,15 +575,14 @@ docker run --rm -it -p 8888:8888 \
 py_docker
 ```
 
-### Py with compose 
+### Py with compose
 
 We now need to map each step of docker run to compose as follows:
 
 ```yml
-version: '3.8'
+version: "3.8"
 
 services:
-
   py:
     build:
       context: .
@@ -600,7 +597,7 @@ services:
     stdin_open: true # docker run -i
 ```
 
-Notice the `tty` which corresponds to `-t` and `stdin_open` correspond to `-i` from docker run! 
+Notice the `tty` which corresponds to `-t` and `stdin_open` correspond to `-i` from docker run!
 
 ### Running py with compose
 
@@ -618,7 +615,7 @@ Successfully tagged dr_dc_py:latest
 Starting py ... done
 ```
 
-Check that the `py` container exists with `docker ps`. 
+Check that the `py` container exists with `docker ps`.
 
 To access the `py` container:
 
@@ -676,17 +673,15 @@ Structure:
 
 2 directories, 10 files
 ```
-        
+
 ### Combined Compose
 
-
-We first combine the two yml files together while specifiying that the `py` service depends on the `db` service and `db` to expose port `5432` like so: 
+We first combine the two yml files together while specifiying that the `py` service depends on the `db` service and `db` to expose port `5432` like so:
 
 ```yml
-version: '3.8'
+version: "3.8"
 
 services:
-
   py:
     build:
       context: .
@@ -699,7 +694,7 @@ services:
       - ./src:/src
     tty: true # docker run -t
     stdin_open: true # docker run -i
-    depends_on: # new 
+    depends_on: # new
       - db # new
   db:
     build:
@@ -715,11 +710,11 @@ services:
       - POSTGRES_DB=your_database
 ```
 
-### Creating py script 
+### Creating py script
 
-In the earlier example above when using local python, our `host` is `0.0.0.0` and `port = 6666`. However, since we are in docker compose is now within the same "network" environment, the `host` is `mydb` which is the container name and `port` will be `5432`! 
+In the earlier example above when using local python, our `host` is `0.0.0.0` and `port = 6666`. However, since we are in docker compose is now within the same "network" environment, the `host` is `mydb` which is the container name and `port` will be `5432`!
 
-We create a new python script in the `src` folder named `run.py`: 
+We create a new python script in the `src` folder named `run.py`:
 
 ```python
 import psycopg2
@@ -754,7 +749,7 @@ Creating mydb ... done
 Recreating py ... done
 ```
 
-and we can check that it is successful with `docker ps`: 
+and we can check that it is successful with `docker ps`:
 
 ```bash
 > docker ps
@@ -789,9 +784,9 @@ Followed by running the python script:
 [(150,)]
 ```
 
-Note, you can also launch jupyter notebook in bash! 
+Note, you can also launch jupyter notebook in bash!
 
-Type `exit` to get out of shell followed by `make dc_down`. 
+Type `exit` to get out of shell followed by `make dc_down`.
 
 ```bash
 ❯ make dc_down
@@ -814,7 +809,7 @@ dc_py_run:
 	docker-compose exec py python run.py
 ```
 
-The purpose of `sleep 5` is for the images to get synced up before triggering the python script. 
+The purpose of `sleep 5` is for the images to get synced up before triggering the python script.
 
 ```bash
 ❯ make dc_py_run
@@ -826,7 +821,7 @@ docker-compose exec py python run.py
 
 > :smile:
 > Congrats! We have now mocked an end to end python workflow with a dummy database with docker compose!
-{: .prompt-info }
+> {: .prompt-info }
 
 ## Vscode DevContainer
 
@@ -902,15 +897,14 @@ This is my json file for my `.devcontainer/devcontainer.json`:
   // "remoteUser": "vscode"
   "shutdownAction": "stopContainer"
 }
-
 ```
 
 There are a few key changes in arguments or things to take note, such as:
 
-* `dockerComposeFile` - specify which dockerfile to use
-* `remoteEnv` - you only can use `remoteEnv` and no longer `containerEnv`
-* `service` - which docker container to use as the "front" layer in vscode
-* `workspaceFolder` - which folder to mount in vscode. Make sure that the workspaceFolder is also specified as a volume in your docker compose file!!
+- `dockerComposeFile` - specify which dockerfile to use
+- `remoteEnv` - you only can use `remoteEnv` and no longer `containerEnv`
+- `service` - which docker container to use as the "front" layer in vscode
+- `workspaceFolder` - which folder to mount in vscode. Make sure that the workspaceFolder is also specified as a volume in your docker compose file!!
 
 For more information please refer to the [advance container section](#vscode).
 
@@ -943,43 +937,42 @@ This is how the final structure should look like if you wish to use remote devel
 
 The next steps is exactly the same with docker,
 
-* Open command palette
-* Select `Remote-Containers: Rebuild and Reopen in Container` 
+- Open command palette
+- Select `Remote-Containers: Rebuild and Reopen in Container`
 
 Here is a screenshot to demostrate the capability as well as the layout:
 
-![image]({{ "/assets/posts/docker/vscode-compose.png" | relative_url }})
+![image](/assets/posts/docker/vscode-compose.png)
 
 ## References
 
 ### Official documentation
 
-* [Overview of docker compose](https://docs.docker.com/compose/)
-* [Compose file version 3 reference](https://docs.docker.com/compose/compose-file/compose-file-v3/)
+- [Overview of docker compose](https://docs.docker.com/compose/)
+- [Compose file version 3 reference](https://docs.docker.com/compose/compose-file/compose-file-v3/)
 
 ### Other examples
 
-* [Full stack data scientist - practical introduction to docker](https://medium.com/applied-data-science/the-full-stack-data-scientist-part-2-a-practical-introduction-to-docker-1ea932c89b57)
-* [Import csv into docker-postgres](https://sherryhsu.medium.com/how-to-import-csv-into-docker-postgresql-database-22d56e2a1117)
+- [Full stack data scientist - practical introduction to docker](https://medium.com/applied-data-science/the-full-stack-data-scientist-part-2-a-practical-introduction-to-docker-1ea932c89b57)
+- [Import csv into docker-postgres](https://sherryhsu.medium.com/how-to-import-csv-into-docker-postgresql-database-22d56e2a1117)
 
 ### Interactive compose
 
-* [Stackoverflow - exited with code 0](https://stackoverflow.com/questions/44884719/exited-with-code-0-docker)
-* [Stackoverflow - Interactive shell with docker compose](https://stackoverflow.com/questions/36249744/interactive-shell-using-docker-compose)
+- [Stackoverflow - exited with code 0](https://stackoverflow.com/questions/44884719/exited-with-code-0-docker)
+- [Stackoverflow - Interactive shell with docker compose](https://stackoverflow.com/questions/36249744/interactive-shell-using-docker-compose)
 
 ### Compose up options
 
-* [Docker compose up documentation](https://docs.docker.com/compose/reference/up/)
-* [Stackoverflow - Comparision with various docker-compose up steps](https://stackoverflow.com/questions/39988844/docker-compose-up-vs-docker-compose-up-build-vs-docker-compose-build-no-cach)
+- [Docker compose up documentation](https://docs.docker.com/compose/reference/up/)
+- [Stackoverflow - Comparision with various docker-compose up steps](https://stackoverflow.com/questions/39988844/docker-compose-up-vs-docker-compose-up-build-vs-docker-compose-build-no-cach)
 
 ### Initialize postgressql with docker
 
-* [Multiple sql init script with docker postgres](https://gist.github.com/onjin/2dd3cc52ef79069de1faa2dfd456c945)
-* [Docker hub postgres documentation](https://hub.docker.com/_/postgres)
-* [Different methods to load testdata to PostgresSQL](https://gitlab.com/tangram-vision-oss/tangram-visions-blog/-/tree/main/2021.04.28_LoadingTestDataIntoPostgreSQL)
-
+- [Multiple sql init script with docker postgres](https://gist.github.com/onjin/2dd3cc52ef79069de1faa2dfd456c945)
+- [Docker hub postgres documentation](https://hub.docker.com/_/postgres)
+- [Different methods to load testdata to PostgresSQL](https://gitlab.com/tangram-vision-oss/tangram-visions-blog/-/tree/main/2021.04.28_LoadingTestDataIntoPostgreSQL)
 
 ### Vscode
 
-* [Remote development with docker compose](https://code.visualstudio.com/docs/remote/create-dev-container#_use-docker-compose)
-* [Advance container configuration](https://code.visualstudio.com/docs/remote/containers-advanced)
+- [Remote development with docker compose](https://code.visualstudio.com/docs/remote/create-dev-container#_use-docker-compose)
+- [Advance container configuration](https://code.visualstudio.com/docs/remote/containers-advanced)

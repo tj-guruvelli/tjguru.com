@@ -532,34 +532,34 @@ Runtime analysis:
 
 To prove the correctness, we first need to define the cut property:
 
-![image](../../../assets/posts/gatech/ga/gr3_cut.png){: width='400' }
+![image](/assets/posts/gatech/ga/gr3_cut.png){: width='400' }
 
 In other words, the cut of a graph is a set of edges which partition the vertices into two sets. In later part, we will look at problems such as minimum/maximum cut to partition the graphs into two components.
 
-![image](../../../assets/posts/gatech/ga/gr3_cut_mst.png){: width='400' }
+![image](/assets/posts/gatech/ga/gr3_cut_mst.png){: width='400' }
 
 The core of the proof is:
 * Use induction, and assume that $X \subset E$ where $X \subset T$ for a MST $T$. The claim is when we add an edge from $S, \bar{S}$, we form another MST $T'$.
 
 **Proof outline**
 
-![image](../../../assets/posts/gatech/ga/gr3_cut_mst1.png){: width='400' }
+![image](/assets/posts/gatech/ga/gr3_cut_mst1.png){: width='400' }
 
 So, we need to consider two cases, if $e^* \in T$ or $e^* \notin T$.
 
 * If $e^* \in T$, our job is done, as there is nothing to show.
 * If $e^* \notin T$ (such as the diagram above), then we modify $T$ in order ot add edge $e^*$ and construct a new MST $T'$ 
 
-![image](../../../assets/posts/gatech/ga/gr3_cut_mst2.png){: width='400' }
+![image](/assets/posts/gatech/ga/gr3_cut_mst2.png){: width='400' }
 
 Next, we show that $T'$ is still a tree:
 
-![image](../../../assets/posts/gatech/ga/gr3_cut_mst3.png){: width='400' }
+![image](/assets/posts/gatech/ga/gr3_cut_mst3.png){: width='400' }
 
 
 * Remember if a tree with size $n$ has $n-1$ edges then it must be connected.
 
-![image](../../../assets/posts/gatech/ga/gr3_cut_mst4.png){: width='400'}
+![image](/assets/posts/gatech/ga/gr3_cut_mst4.png){: width='400' }
 
 * Actually, it turns out that $w(T') = w(T)$, otherwise it would contradict the fact that $T$ is a MST. 
 
