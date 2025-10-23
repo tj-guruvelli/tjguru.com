@@ -948,7 +948,7 @@ The next steps is exactly the same with docker,
 
 Here is a screenshot to demostrate the capability as well as the layout:
 
-![image](../../../assets/posts/docker/vscode-compose.png)
+![image]({{ "/assets/posts/docker/vscode-compose.png" | relative_url }})
 
 ## References
 

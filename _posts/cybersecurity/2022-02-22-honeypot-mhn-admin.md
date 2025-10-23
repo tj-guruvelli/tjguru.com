@@ -14,12 +14,12 @@ Time spent: 10 hours total
 
 - Platform: Google Cloud Platform (GCP)
 - Flask‑based admin UI; firewall + VM setup; sensors and scripts deployed from console
-- Artifact: <img src="/assets/img/posts/cybersecurity/mhn-admin.gif" width="900" />
+- Artifact: <img src="/assets/img/posts/cybersecurity/mhn-admin.gif" width="900" alt="MHN Admin Demo" />
 
 ## Dionaea Deployment
 
 - Purpose: low‑interaction honeypot to capture malware samples and metadata (e.g., MD5)
-- Artifact: <img src="/assets/img/posts/cybersecurity/dionaea-honeypot.gif" width="900" />
+- Artifact: <img src="/assets/img/posts/cybersecurity/dionaea-honeypot.gif" width="900" alt="Dionaea Honeypot Capture" />
 
 ## Database Backup
 
