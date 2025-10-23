@@ -4,5 +4,5 @@ order: 3
 ---
 
 <script>
-window.location.href = "/categories/gatech/";
+window.location.href = "/tjguru.com/categories/gatech/";
 </script>
