@@ -114,7 +114,7 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo: tj-guruvelli/tj-guru # <gh-username>/<repo>
+    repo: tj-guruvelli/tjguru.com # <gh-username>/<repo>
     repo_id: # You'll need to fill this in after creating the GitHub repo
     category: Announcements
     category_id: # You'll need to fill this in after setting up Giscus
