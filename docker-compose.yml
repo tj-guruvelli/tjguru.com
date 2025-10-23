@@ -2,10 +2,13 @@ version: "3"
 
 services:
   jekyll:
-    image: jekyll/jekyll:latest
-    command: bash -c "bundle install && bundle exec jekyll build --trace"
+    build: .
+    platform: linux/amd64
+    ports:
+      - "4000:4000"
     volumes:
       - .:/srv/jekyll
     environment:
       - JEKYLL_ENV=production
       - DISABLE_SPRING=true
+    command: bash -c "bundle install && bundle exec jekyll serve --safe --no-watch --host 0.0.0.0"

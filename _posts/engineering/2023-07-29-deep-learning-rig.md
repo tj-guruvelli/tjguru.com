@@ -2,7 +2,7 @@
 title: Setting up my own deep learning rig
 date: 2023-07-29 0000:00:00 +0800
 categories: [Knowledge, Engineering]
-tags: [engineering, server, deeplearningrig]     # TAG names should always be lowercase
+tags: [engineering, server, deeplearningrig] # TAG names should always be lowercase
 math: true
 toc: true
 mermaid: true
@@ -10,7 +10,7 @@ mermaid: true
 
 ## Personal Note
 
-Currently I am pursuing a [online masters in computer science from Georgia Tech](https://omscs.gatech.edu/home). Part of the coursework (that I intend to take) such as [Deep Learning](https://omscs.gatech.edu/cs-7643-deep-learning) and [Reinforcement Learning](https://omscs.gatech.edu/cs-7642-reinforcement-learning) recommends a [CUDA](https://en.wikipedia.org/wiki/CUDA) compatible GPU. In addition, based on my personal experience, the downside of using cloud technologies is that it can be a hassle to start/shut down instances (or if you forgot to!), which introduces a barrier when trying simple experiments. Furthermore, [colab](https://colab.research.google.com/?) recently switched to a credits model instead of a subscription model. 
+Currently I am pursuing a [online masters in computer science from Georgia Tech](https://omscs.gatech.edu/home). Part of the coursework (that I intend to take) such as [Deep Learning](https://omscs.gatech.edu/cs-7643-deep-learning) and [Reinforcement Learning](https://omscs.gatech.edu/cs-7642-reinforcement-learning) (OMSCyber) recommends a [CUDA](https://en.wikipedia.org/wiki/CUDA) compatible GPU. In addition, based on my personal experience, the downside of using cloud technologies is that it can be a hassle to start/shut down instances (or if you forgot to!), which introduces a barrier when trying simple experiments. Furthermore, [colab](https://colab.research.google.com/?) recently switched to a credits model instead of a subscription model.
 
 This, combined with the recent surge of interest in generative AI, made me decide to invest in my own deep learning rig. In addition I thought it would be cool and educational about maintaining my own "private" server.
 
@@ -25,30 +25,37 @@ I bought my PC from [aftershock](https://www.aftershockpc.com/) with Windows 11 
 This [guide](https://www.xda-developers.com/dual-boot-windows-11-linux/) is the one I followed to install dual boot ubuntu. I download the ubuntu desktop version instead of the server function, just incase I ever need the UI.
 
 > ### Tips
-> * You need to prepare a thumbdrive to function as an [ISO image](https://en.wikipedia.org/wiki/Optical_disc_image).
-> * I set my ubuntu to be
->   * Default OS
->   * Login automatically.
+>
+> - You need to prepare a thumbdrive to function as an [ISO image](https://en.wikipedia.org/wiki/Optical_disc_image).
+> - I set my ubuntu to be
+>   - Default OS
+>   - Login automatically.
 >
 > This is so that I can place my desktop anywhere in the house, and I just need to turn the power on. For heavy debugging tasks I will connect it to a monitor :smile:. For shutting down or rebooting, it can be done with `sudo reboot` and `sudo shutdown now`.
-{: .prompt-info }
+> {: .prompt-info }
 
 ## Configuring users
 
 These are the commands I found useful when configuring users / deleting users.
 
-* Add user
-    * ```bash
+- Add user
+
+  - ```bash
     sudo adduser <username>
     ```
-* Add user to sudoers group (Giving new users admin/root access):
-    * [Online Guide on how to addd sudoers in ubuntu](https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/)
-    * ```bash
-      usermod -aG sudo <username>
-      ```
-* Delete user
-  * [askubuntu.com - How to delete a user & its home folder safetly](https://askubuntu.com/questions/459365/how-to-delete-a-user-its-home-folder-safely) 
-  * ```bash
+
+  ```
+
+  ```
+
+- Add user to sudoers group (Giving new users admin/root access):
+  - [Online Guide on how to addd sudoers in ubuntu](https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/)
+  - ```bash
+    usermod -aG sudo <username>
+    ```
+- Delete user
+  - [askubuntu.com - How to delete a user & its home folder safetly](https://askubuntu.com/questions/459365/how-to-delete-a-user-its-home-folder-safely)
+  - ```bash
     sudo userdel username
     # Or to delete the home directory as well
     sudo deluser --remove-home user
@@ -120,12 +127,11 @@ lowyx:~$
 I followed this [guide](https://linuxhint.com/install-anaconda-ubuntu-22-04/) to install anaconda, as it is my preferred method to manage different python environments locally. The instructions are pretty straight forward:
 
 > **Using Docker while remote ssh!**
-> 
-> * Turns out using docker in such an environment is pretty straight forward.
-> * It is exactly the same from the terminal point of view, and if you are using vscode, the plugins handles majority of the complexities.
-> * More information can be found at the [remote ide](#remote-ide) section.
-{: .prompt-info }
-
+>
+> - Turns out using docker in such an environment is pretty straight forward.
+> - It is exactly the same from the terminal point of view, and if you are using vscode, the plugins handles majority of the complexities.
+> - More information can be found at the [remote ide](#remote-ide) section.
+>   {: .prompt-info }
 
 Look at the [official anaconda repo site](https://repo.anaconda.com/archive/) and select the version you need. I happen to be using the intel x64 architecture:
 
@@ -153,9 +159,9 @@ In my opinion, configuring Cuda and Nvidia for deep learning is a little tricky,
 
 {% include embed/youtube.html id='c0Z_ItwzT5o' %}
 
-* Install nvidia drivers (nvidia-smi)
-* Configure Cuda
-* Install pytorch
+- Install nvidia drivers (nvidia-smi)
+- Configure Cuda
+- Install pytorch
 
 ### Nvidia-smi
 
@@ -219,7 +225,7 @@ If you see the `nvidia-smi` output above, you will notice that the CUDA Version 
 
 ![image](../../../assets/posts/dlrig/pytorch_site.png)
 
-So, it is important that we install the cuda 11.8 version. I just searched Google with `nvidia driver for cuda 11.8` and it brought me to the nvidia developer page [here](https://developer.nvidia.com/cuda-11-8-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=runfile_local). 
+So, it is important that we install the cuda 11.8 version. I just searched Google with `nvidia driver for cuda 11.8` and it brought me to the nvidia developer page [here](https://developer.nvidia.com/cuda-11-8-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=runfile_local).
 
 ![image](../../../assets/posts/dlrig/nvidia.png)
 
@@ -246,8 +252,8 @@ After this step, reboot your desktop (`sudo reboot`). It will show you an output
 
 To make sure everything is working correctly:
 
-* Navigate to `/usr/local` and look for `cuda-11.8` (Or the version you are using):
-* Navigate to `cuda-11.8/bin`, you should see a `nvcc` binary
+- Navigate to `/usr/local` and look for `cuda-11.8` (Or the version you are using):
+- Navigate to `cuda-11.8/bin`, you should see a `nvcc` binary
 
 ```bash
 lowyx:/usr/local/cuda-11.8/bin$ ./nvcc --version
@@ -318,12 +324,11 @@ Installing tensorflow is pretty easy, I just followed the official [documentatio
 
 Use [vscode remote development](https://code.visualstudio.com/docs/remote/ssh). All you got to do is to connect to ssh and vscode will figure out your filesystem for you.
 
-### Remote IDE with docker 
+### Remote IDE with docker
 
 I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04) to install docker.
 
 Similarly, you can create a Dockerfile and `.devcontainer.json`, install the required extensions and develop on top of docker in your remote Desktop. I may upload an example in the future if there is demand for it.
-
 
 ## Useful Tips
 
@@ -351,7 +356,7 @@ To list all available drives:
 lsblk
 ```
 
-To have a shared drive and share them among dual boot, I found this [guide](https://devicetests.com/share-files-windows-ubuntu-dual-boot) to be useful. 
+To have a shared drive and share them among dual boot, I found this [guide](https://devicetests.com/share-files-windows-ubuntu-dual-boot) to be useful.
 
 For my own linux, I created `/mnt/shared` and added this line to `/etc/fstab`:
 

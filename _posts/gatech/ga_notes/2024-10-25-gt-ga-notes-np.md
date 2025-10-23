@@ -1,7 +1,7 @@
 ---
 toc: true
 mermaid: true
-hidden: true
+hidden: false
 math: true
 ---
 

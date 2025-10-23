@@ -1,0 +1,78 @@
+/*
+  Georgia Tech Color Scheme
+  Primary: Tech Gold (#B3A369)
+  Secondary: Navy Blue (#003057)
+  Accent: Dark Green (#004B23)
+*/
+
+// Base palette
+$gt-gold: #b3a369;
+$gt-navy: #003057;
+$gt-green: #004b23;
+$gt-gold-accent: #a28d5b;
+
+/* Light Mode Colors */
+$light-primary: $gt-gold; // Tech Gold
+$light-secondary: $gt-navy; // Navy Blue
+$light-bg: #ffffff; // White
+$light-text: $gt-navy; // Navy Blue
+$light-link: $gt-green; // Dark Green accent
+$light-border: $gt-gold; // Tech Gold
+$light-hover: $gt-gold-accent; // Tech Gold Accent
+
+/* Dark Mode Colors */
+$dark-primary: $gt-gold; // Tech Gold
+$dark-secondary: $gt-navy; // Navy Blue
+$dark-bg: $gt-navy; // Navy Blue background
+$dark-text: #ffffff; // White
+$dark-link: $gt-gold; // Tech Gold links
+$dark-border: $gt-gold-accent; // Tech Gold Accent
+$dark-hover: $gt-green; // Dark Green hover
+
+/* Override theme variables */
+:root {
+  --body-bg: #{$light-bg};
+  --text-color: #{$light-text};
+  --heading-color: #{$light-secondary};
+  --link-color: #{$light-link};
+  --link-hover-color: #{$light-hover};
+  --sidebar-bg: #{$light-link};
+  --sidebar-active-color: #{$light-primary};
+  --nav-cursor-color: #{$light-primary};
+  --toc-highlight: #{$light-primary};
+  --btn-active-bg: #{$light-primary};
+  --btn-border-color: #{$light-border};
+  --tag-bg: #{$light-primary};
+  --tag-hover: #{$light-hover};
+  --search-icon-color: #{$light-primary};
+  --main-border-color: #{$light-border};
+}
+
+[data-mode='dark'] {
+  --body-bg: #{$dark-bg};
+  --text-color: #{$dark-text};
+  --heading-color: #{$dark-primary};
+  --link-color: #{$dark-link};
+  --link-hover-color: #{$dark-hover};
+  --sidebar-bg: #{$dark-bg};
+  --sidebar-active-color: #{$dark-primary};
+  --nav-cursor-color: #{$dark-primary};
+  --toc-highlight: #{$dark-primary};
+  --btn-active-bg: #{$dark-primary};
+  --btn-border-color: #{$dark-border};
+  /* Tags: dark mode uses dark green base, gold on hover */
+  --tag-bg: #{$gt-green};
+  --tag-hover: #{$dark-link};
+  --search-icon-color: #{$dark-primary};
+  --main-border-color: #{$dark-border};
+}
+
+/* Ensure sidebar background uses our variable */
+#sidebar {
+  background-color: var(--sidebar-bg);
+}
+
+/* Typography */
+$font-family-base: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  'Helvetica Neue', Arial, sans-serif;
+$font-family-heading: 'Georgia', serif;

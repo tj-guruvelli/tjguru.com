@@ -1,0 +1,78 @@
+/*
+  Custom layout adjustments
+*/
+
+/* Increase header size and add GT gold underline */
+#post-list .post-preview h1 {
+  font-size: 1.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--link-color);
+}
+
+/* Add GT gold accent to sidebar */
+#sidebar {
+  .site-title a {
+    color: #b3a369;
+
+    &:hover {
+      color: #a28d5b;
+    }
+  }
+
+  .nav-link {
+    &.active {
+      background: rgba(179, 163, 105, 0.1); /* Tech Gold with opacity */
+    }
+  }
+}
+
+/* Style post metadata */
+.post-meta {
+  .post-tag {
+    background-color: var(--tag-bg);
+    border: 1px solid var(--tag-hover);
+
+    &:hover {
+      background-color: var(--tag-hover);
+    }
+  }
+}
+
+/* Style blockquotes with GT colors */
+blockquote {
+  border-left: 5px solid #b3a369;
+  background-color: rgba(179, 163, 105, 0.1);
+}
+
+/* Style code blocks */
+.highlight {
+  background: rgba(0, 48, 87, 0.05); /* Navy Blue with low opacity */
+  border: 1px solid rgba(179, 163, 105, 0.2); /* Tech Gold border */
+}
+
+/* Add GT gold accent to links in text */
+.post-content {
+  a {
+    border-bottom: 2px solid rgba(179, 163, 105, 0.3);
+
+    &:hover {
+      border-bottom-color: #b3a369;
+    }
+  }
+}
+
+/* Force white text for sidebar (tabs) links in dark mode */
+[data-mode='dark'] {
+  #sidebar {
+    a.nav-link,
+    a.nav-link i,
+    .site-title a,
+    .nav-link span {
+      color: #ffffff !important;
+    }
+
+    .nav-item.active .nav-link {
+      color: #ffffff !important;
+    }
+  }
+}

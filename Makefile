@@ -17,7 +17,7 @@ docker:
 	-e DISABLE_SPRING=true \
 	--platform linux/amd64 \
     --volume="$(shell pwd):/srv/jekyll" \
-    -p 4000:4000 jekyll/jekyll:4 \
+    -p 4000:4000 jekyll/jekyll:4.2.0 \
 	bash -c "bundle install && bundle exec jekyll serve --safe --no-watch"
 
 docker2:
@@ -26,7 +26,7 @@ docker2:
 	-e DISABLE_SPRING=true \
 	--platform linux/amd64 \
     --volume="$(shell pwd):/srv/jekyll" \
-    -p 4000:4000 jekyll/jekyll:4 \
+    -p 4000:4000 jekyll/jekyll:4.2.0 \
 	bash -c "bundle install && bundle exec jekyll build --safe"
 
 # https://stackoverflow.com/questions/9794931/keep-file-in-a-git-repo-but-dont-track-changes
