@@ -14,7 +14,7 @@ timezone:
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: TJ Guru # the main title
+title: guruGuardian # the main title
 
 tagline: Cybersecurity & Development Blog # it will display as the sub-title
 
@@ -144,7 +144,7 @@ pwa:
 paginate: 10
 
 # The base URL of your site
-baseurl: "/tjguru.com"
+baseurl: ""
 
 # ------------ The following options are not recommended to be modified ------------------
 
